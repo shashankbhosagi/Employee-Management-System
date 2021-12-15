@@ -1,3 +1,4 @@
+    // bhagwat
 #include <iostream>
 #include <string>
 #include <iomanip>
@@ -38,19 +39,34 @@ void Employee ::readEmpData()
     cin >> emp_id;
 }
 
-void Employee ::displayEmpData()
+void Employee::displayEmpData()
 {
-    cout << "Employee ID : " << emp_id << endl;
-    cout << "Employee Name : " << emp_name << endl;
-    cout << "Employee Designation : " << designation << endl;
-    cout << "Employee Age : " << age << endl;
-    cout << "Employee Salary : " << salary << endl;
-    cout << "Employee Experince : " << experince << endl;
+    cout << "Employee ID : " << emp_id <<emp_name<<designation<<age<<salary<<experince<< endl;
+}
+
+int Employee::getID()
+{
+    return emp_id;
 }
 
 int main()
 {
-   
+    Employee emp, e;
+    char ch;
+    fstream file;
+    file.open("Employee", ios::ate || ios :: in || ios::out || ios::binary);
+    do
+    {
+        cout<<"--------------Menu--------------";
+        cout<<"1. => Add a record";
+        cout<<"2. => Display the Record";
+        cout<<"3. => Search Employee using Empolyee ID ";
+        cout<<"4. => Update the Record";
+        cout<<"5. => Delete the record of particulat employee ";
+        cout<<"6. => Exit the Menu";
+
+    } while (ch !='n'||'N');
+    
 
     return 0;
 }
