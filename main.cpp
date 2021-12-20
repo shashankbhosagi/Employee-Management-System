@@ -52,9 +52,10 @@ int Employee::getID()
 int main()
 {
     Employee emp, e;
-    char ch;
+    char ch, option;
     fstream file;
-    file.open("Employee", ios::ate || ios :: in || ios::out || ios::binary);
+    int isFound;
+    file.open("fileName", ios::ate | ios :: in | ios::out | ios::binary);
     do
     {
         cout<<"--------------Menu--------------";
@@ -66,6 +67,40 @@ int main()
         cout<<"6. => Exit the Menu";
 
     } while (ch !='n'||'N');
+    cin>>option;
+
+    switch(option)
+    {
+        case '1':
+        emp.readEmpData();
+        file.seekg(0, ios::beg);
+        isFound = 0;
+        file.read((char*)&e, sizeof(e));
+        while (!(file.eof()))
+        {
+            if(e.getID() == emp.getID())
+            {
+                cout<<"This ID already Exists!!!! Pls try for another ID";
+                isFound = 1;
+                break;
+            }
+            file.read((char *)&e, sizeof(e));
+
+        }
+        if(isFound == 1)
+        {
+            break;
+        }
+        file.clear();
+        file.seekp(0, ios::end);
+        file.write((char*)&emp, sizeof(emp));
+        cout<<"New record has been added successfully :)";
+        break;
+
+        case '2':
+               
+        
+    }
     
 
     return 0;
