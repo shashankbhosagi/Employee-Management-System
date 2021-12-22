@@ -51,27 +51,29 @@ int Employee::getID()
 
 int main()
 {
+    int x=0;
     Employee emp, e;
-    char ch, option;
+    char ch;int option;
     fstream file;
     int isFound;
+    int ID;
+
     file.open("fileName", ios::ate | ios :: in | ios::out | ios::binary);
     do
     {
-        cout<<"--------------Menu--------------";
-        cout<<"1. => Add a record";
-        cout<<"2. => Display the Record";
-        cout<<"3. => Search Employee using Empolyee ID ";
-        cout<<"4. => Update the Record";
-        cout<<"5. => Delete the record of particulat employee ";
-        cout<<"6. => Exit the Menu";
-
-    } while (ch !='n'||'N');
-    cin>>option;
+        cout<<"--------------Menu--------------\n";
+        cout<<"1. => Add a record\n";
+        cout<<"2. => Display the Record\n";
+        cout<<"3. => Search Employee using Empolyee ID \n";
+        cout<<"4. => Update the Record\n";
+        cout<<"5. => Delete the record of particular employee \n";
+        cout<<"6. => Exit the Menu\n";
+        cin>>option;
 
     switch(option)
     {
-        case '1':
+        case 1:
+        {
         emp.readEmpData();
         file.seekg(0, ios::beg);
         isFound = 0;
@@ -96,11 +98,120 @@ int main()
         file.write((char*)&emp, sizeof(emp));
         cout<<"New record has been added successfully :)";
         break;
+        }
 
-        case '2':
-               
+        case 2:
+        {cout<<"\nRecord for Employee";
+        file.seekg(0, ios::beg);
+        int count = 0;
+        file.read((char*)&e, sizeof(e));
+        cout<<"\n"<<"     "<<"Emp ID"<<""<<"Name"<<""<<"Designation"<<""<<"age"<<""<<"Salary"<<""<<"Experince";
+
+        while (file)
+        {
+            count++;
+            e.displayEmpData();
+            file.read((char*)&e, sizeof(e));
+                       
+        }
+        cout<<endl<<count<<" records found......";
+        break;
+        }
+        case 3:
+        {
+        isFound = 0;
+        cout<<"\n"<<"Enter ID of an employee to be searched : ";
+        cin>>ID;
+        file.seekg(0, ios::beg);
+        file.read((char *)&e, sizeof(e));
+        while (file)
+        {
+            if(e.getID() == ID)
+            {
+                cout<<"Record found....";
+                cout<<"\n"<<"     "<<"Emp ID"<<""<<"Name"<<""<<"Designation"<<""<<"age"<<""<<"Salary"<<""<<"Experince";
+                e.displayEmpData();
+                isFound = 1;
+                break;
+
+            }
+            file.read((char *)&e, sizeof(e)); 
+        }
+        if(isFound == 0)
+        {
+            cout<<"Data not found for this employee id #"<<ID;
+        }
+        break;
+        }
+
+        case 4: //Update the record
+        {
+        int i=0;
+        cout<<"\n"<<"File is being modified";
+        cout<<"\nEnter employee Id to be updated : ";
+        cin>>ID;
+        isFound = 0;
+        file.seekg(0, ios::beg);
+        file.read((char *)&e, sizeof(e));
+        while (file)
+        {
+            i++;
+            if (e.getID() == ID)
+            {
+                cout<<"The old record of employee having ID : "<<ID<<"is:";
+                e.displayEmpData();
+                isFound = 1;
+                break;
+            }
+            file.read((char *)&e, sizeof(e));
+
+            
+        }
+
+        if(isFound == 0)
+        {
+            cout<<"\nData not found for employee ID#"<<ID;
+            break;
+        }
+
+        file.clear();
+        int location = (i-1)*sizeof(e);
+        file.seekp(location, ios::beg);
+        cout<<"\nEnter new the record for employee having ID"<<ID;
+        e.readEmpData();
+        file.write((char*)&e, sizeof(e));
+        break;
+        }
         
-    }
+        case 5: //delete record 
+        {
+            int i=0;
+            cout<<"\nENter the employee ID to be deleted:";
+            cin>>ID;
+            isFound = 0;
+            file.seekg(0, ios::beg);
+            file.read((char *)&e, sizeof(e));
+            while (file)
+            {
+                i++;
+                if (e.getID() == ID)
+                {
+                    cout<<"The old record of the employee having ID";
+                }
+                
+            }
+            
+            
+        }
+
+        
+
+               
+        x++;
+    }while(x!=1);
+    
+    } while (1);
+
     
 
     return 0;
