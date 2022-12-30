@@ -1,12 +1,26 @@
-    // bhagwat
-#include <iostream>
-#include <string>
+/**
+ * @file main.cpp
+ * @author shashankbhosagi
+ * @brief 
+ * @version 0.1
+ * @date 2021-12-22
+ * 
+ * @copyright Copyright (c) 2021
+ * 
+ */
+#include <iostream> /// for i/o operation
+#include <string>   /// for using functions related to cpp string
 #include <iomanip>
 #include <conio.h>
-#include <fstream>
-#include <stdio.h>
-#include <stdlib.h>
+#include <fstream>  /// For file fandling
+#include <stdio.h>  /// for i/o operation
+#include <stdlib.h> /// for including functions involving memory allocation such as `malloc`
 using namespace std;
+
+/**
+ * @brief This is blueprint for Employee
+ * 
+ */
 class Employee
 {
     char emp_name[20];
@@ -22,6 +36,10 @@ public:
     int getID();
 };
 
+/**
+ * @brief The readEmpData() function for taking employee info
+ * 
+ */
 void Employee ::readEmpData()
 {
     cout << "Employee ID : ";
@@ -39,16 +57,30 @@ void Employee ::readEmpData()
     cin >> emp_id;
 }
 
+/**
+ * @brief Function to display employee data
+ * 
+ */
 void Employee::displayEmpData()
 {
     cout << "Employee ID : " << emp_id <<emp_name<<designation<<age<<salary<<experince<< endl;
 }
 
+/**
+ * @brief Function to get employee ID
+ * 
+ * @return int 
+ */
 int Employee::getID()
 {
     return emp_id;
 }
 
+/**
+ * @brief Main Function
+ * 
+ * @returns 0 on exit
+ */
 int main()
 {
     int x=0;
